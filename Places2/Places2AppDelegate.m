@@ -9,6 +9,8 @@
 #import "Places2AppDelegate.h"
 
 #import "RootViewController.h"
+#import "TopPlacesTableViewController.h"
+#import "RecentPhotosTableViewController.h"
 
 @implementation Places2AppDelegate
 
@@ -21,8 +23,52 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-    // Add the navigation controller's view to the window and display.
-    self.window.rootViewController = self.navigationController;
+    UITabBarController *tabBarController = [[UITabBarController alloc] init];
+    
+    // create 2 table controllers for each tab
+    TopPlacesTableViewController *tpc = [[TopPlacesTableViewController alloc] initInContext:self.managedObjectContext];
+    tpc.tabBarItem.title = @"Popular Places";
+    tpc.tabBarItem.image = [UIImage imageNamed:@"MostViewed.jpg"];
+    UINavigationController *tpcNav = [[UINavigationController alloc] initWithRootViewController:tpc];
+    [tpc release];
+    
+    RecentPhotosTableViewController *rpc = [[RecentPhotosTableViewController alloc] initInContext:self.managedObjectContext];
+    rpc.title = @"Recent Photos";
+    rpc.tabBarItem.title = @"Recent Photots";
+    rpc.tabBarItem.image = [UIImage imageNamed:@"MostViewed.jpg"];
+    UINavigationController *rpcNav = [[UINavigationController alloc] initWithRootViewController:rpc];
+    [rpc release];
+    
+    /*
+     RecentPicturesTableViewController *rpc = [[RecentPicturesTableViewController alloc] init];
+     rpc.tabBarItem.title = @"Recent Pictures";
+     rpc.tabBarItem.image = [UIImage imageNamed:@"MostViewed.jpg"];
+     UINavigationController *rpcNav = [[UINavigationController alloc] initWithRootViewController:rpc];
+     [rpc release];
+     */
+    
+    /*
+    PicturesTableViewController * pvc = [[PicturesTableViewController alloc] init];
+    RecentPictureInfoSource * pis = [[RecentPictureInfoSource alloc] init];
+    [pis autorelease];
+    pvc.title = @"Recently Viewed";
+    pvc.photoList = [RecentPhotoManager GetRecentlyViewedPhotos];
+    pvc.tabBarItem.title = @"Recent Pictures";
+    pvc.tabBarItem.image = [UIImage imageNamed:@"MostViewed.jpg"];
+    pvc.photoListSource = pis;
+    UINavigationController *rpcNav = [[UINavigationController alloc] initWithRootViewController:pvc];
+    [pvc release];
+    //[pis release];
+    */
+    
+    // create array of views and add it to the tab controller
+    //NSArray *tabsArray = [[NSArray alloc] initWithObjects:tpcNav, rpcNav, nil];
+    NSArray *tabsArray = [[NSArray alloc] initWithObjects:tpcNav, rpcNav, nil];
+    tabBarController.viewControllers = tabsArray;
+    [tpcNav release];
+    [rpcNav release];
+    
+    [self.window addSubview:tabBarController.view];
     [self.window makeKeyAndVisible];
     return YES;
 }
