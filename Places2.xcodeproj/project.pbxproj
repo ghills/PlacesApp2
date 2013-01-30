@@ -33,6 +33,8 @@
 		9BEBBAB416A3C7CC00A28FFA /* FlickrPlacePicturesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BEBBAB316A3C7CC00A28FFA /* FlickrPlacePicturesTableViewController.m */; };
 		9BEBBABB16B632F400A28FFA /* CoreDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BEBBABA16B632F400A28FFA /* CoreDataTableViewController.m */; };
 		9BEBBABE16B633C000A28FFA /* RecentPhotosTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BEBBABD16B633BF00A28FFA /* RecentPhotosTableViewController.m */; };
+		9BEBBAC716B8F12500A28FFA /* selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BEBBAC516B8F12400A28FFA /* selected.png */; };
+		9BEBBAC816B8F12500A28FFA /* unselected.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BEBBAC616B8F12500A28FFA /* unselected.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -84,6 +86,8 @@
 		9BEBBABA16B632F400A28FFA /* CoreDataTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataTableViewController.m; sourceTree = "<group>"; };
 		9BEBBABC16B633BF00A28FFA /* RecentPhotosTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentPhotosTableViewController.h; sourceTree = "<group>"; };
 		9BEBBABD16B633BF00A28FFA /* RecentPhotosTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentPhotosTableViewController.m; sourceTree = "<group>"; };
+		9BEBBAC516B8F12400A28FFA /* selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selected.png; sourceTree = "<group>"; };
+		9BEBBAC616B8F12500A28FFA /* unselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unselected.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +136,7 @@
 		9BEBBA3F16954D1700A28FFA /* Places2 */ = {
 			isa = PBXGroup;
 			children = (
+				9BEBBAC016B8F07200A28FFA /* Resources */,
 				9BEBBAB616A3D0FB00A28FFA /* Flickr */,
 				9BEBBAB716A3D12C00A28FFA /* Controllers */,
 				9BEBBAB816A3D14800A28FFA /* Model */,
@@ -219,6 +224,15 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
+		9BEBBAC016B8F07200A28FFA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				9BEBBAC516B8F12400A28FFA /* selected.png */,
+				9BEBBAC616B8F12500A28FFA /* unselected.png */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -269,6 +283,8 @@
 				9BEBBA4416954D1700A28FFA /* InfoPlist.strings in Resources */,
 				9BEBBA5016954D1700A28FFA /* MainWindow.xib in Resources */,
 				9BEBBA5616954D1700A28FFA /* RootViewController.xib in Resources */,
+				9BEBBAC716B8F12500A28FFA /* selected.png in Resources */,
+				9BEBBAC816B8F12500A28FFA /* unselected.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

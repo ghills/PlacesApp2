@@ -62,7 +62,9 @@
     }
     
     
-    UIBarButtonItem *favoriteButton = [[UIBarButtonItem alloc] initWithTitle:@"Favorite" style:UIBarButtonItemStylePlain target:self action:@selector(favoriteButtonPressed:)];
+    //UIBarButtonItem *favoriteButton = [[UIBarButtonItem alloc] initWithTitle:@"Favorite" style:UIBarButtonItemStylePlain target:self action:@selector(favoriteButtonPressed:)];
+    UIImage *btnImage = [UIImage imageNamed:@"unselected.png"];
+    UIBarButtonItem *favoriteButton = [[UIBarButtonItem alloc] initWithImage:btnImage style:UIBarButtonItemStylePlain target:self action:@selector(favoriteButtonPressed:)];
     [self updateButtonStyle:favoriteButton];
     self.navigationItem.rightBarButtonItem = favoriteButton;
     [favoriteButton release];
@@ -84,16 +86,20 @@
 
 - (void)updateButtonStyle:(UIBarButtonItem *)button
 {
+    UIImage *btnImage = nil;
     if( [self.photo.favorite boolValue] )
     {
         //button.style = UIBarButtonItemStyleDone;
-        button.title = @"Unfavorite";
+        //button.title = @"Unfavorite";
+        btnImage = [UIImage imageNamed:@"selected.png"];
     }
     else
     {
         //button.style = UIBarButtonItemStyleBordered;
-        button.title = @"Favorite";
+        //button.title = @"Favorite";
+        btnImage = [UIImage imageNamed:@"unselected.png"];
     }
+    button.image = btnImage;
 }
 
 - (void)viewDidUnload
