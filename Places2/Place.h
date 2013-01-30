@@ -19,6 +19,8 @@
 
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSSet *pictures;
+@property (nonatomic, retain) NSNumber * hasFavorite;
+
 @end
 
 @interface Place (CoreDataGeneratedAccessors)

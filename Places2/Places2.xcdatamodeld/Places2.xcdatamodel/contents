@@ -10,11 +10,12 @@
         <relationship name="whereTook" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Place" inverseName="pictures" inverseEntity="Place"/>
     </entity>
     <entity name="Place" representedClassName="Place">
+        <attribute name="hasFavorite" optional="YES" attributeType="Boolean"/>
         <attribute name="name" attributeType="String"/>
         <relationship name="pictures" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Photo" inverseName="whereTook" inverseEntity="Photo"/>
     </entity>
     <elements>
-        <element name="Photo" positionX="160" positionY="192" width="128" height="150"/>
-        <element name="Place" positionX="160" positionY="192" width="128" height="75"/>
+        <element name="Photo" positionX="160" positionY="192" width="128" height="165"/>
+        <element name="Place" positionX="160" positionY="192" width="128" height="90"/>
     </elements>
 </model>

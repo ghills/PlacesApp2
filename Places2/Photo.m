@@ -45,5 +45,28 @@
     return picture;
 }
 
+- (void)toggleFavorite
+{
+    Place * place = (Place *)self.whereTook;
+    
+    if( [self.favorite boolValue] )
+    {
+        self.favorite = [NSNumber numberWithBool:NO];
+        Boolean hasfav = NO;
+        
+        for(Photo * p in place.pictures )
+        {
+            hasfav = hasfav || [p.favorite boolValue];
+        }
+        place.hasFavorite = [NSNumber numberWithBool:hasfav];
+    }
+    else
+    {
+        self.favorite = [NSNumber numberWithBool:YES];
+        place.hasFavorite = [NSNumber numberWithBool:YES];
+    }
+    
+}
+
 
 @end

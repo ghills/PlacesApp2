@@ -13,6 +13,7 @@
 @implementation Place
 @dynamic name;
 @dynamic pictures;
+@dynamic hasFavorite;
 
 + (Place *)placeWithname:(NSString *)name inManagedObjectContext:(NSManagedObjectContext *)context
 {

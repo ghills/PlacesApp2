@@ -16,6 +16,8 @@
 
 + (Photo *)photoWithFlickrData:(NSDictionary *)flickrData inManagedObjectContext:(NSManagedObjectContext *)context atLocationNamed:(NSString *)place;
 
+- (void)toggleFavorite;
+
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSString * summary;
 @property (nonatomic, retain) NSString * url;

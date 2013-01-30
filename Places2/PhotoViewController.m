@@ -62,8 +62,39 @@
     }
     
     
+    UIBarButtonItem *favoriteButton = [[UIBarButtonItem alloc] initWithTitle:@"Favorite" style:UIBarButtonItemStylePlain target:self action:@selector(favoriteButtonPressed:)];
+    [self updateButtonStyle:favoriteButton];
+    self.navigationItem.rightBarButtonItem = favoriteButton;
+    [favoriteButton release];
 }
 
+- (void)favoriteButtonPressed:(id)sender
+{
+    [self.photo toggleFavorite];
+    
+    NSError * error = nil;
+    [self.photo.managedObjectContext save:&error];
+    if( error )
+    {
+        NSLog(@"%@",[error localizedDescription]);
+    }
+    
+    [self updateButtonStyle:self.navigationItem.rightBarButtonItem];
+}
+
+- (void)updateButtonStyle:(UIBarButtonItem *)button
+{
+    if( [self.photo.favorite boolValue] )
+    {
+        //button.style = UIBarButtonItemStyleDone;
+        button.title = @"Unfavorite";
+    }
+    else
+    {
+        //button.style = UIBarButtonItemStyleBordered;
+        button.title = @"Favorite";
+    }
+}
 
 - (void)viewDidUnload
 {
