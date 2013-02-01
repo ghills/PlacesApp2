@@ -10,7 +10,7 @@
         <relationship name="whereTook" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Place" inverseName="pictures" inverseEntity="Place"/>
     </entity>
     <entity name="Place" representedClassName="Place">
-        <attribute name="hasFavorite" optional="YES" attributeType="Boolean"/>
+        <attribute name="hasFavorite" optional="YES" attributeType="Boolean" defaultValueString="NO"/>
         <attribute name="name" attributeType="String"/>
         <relationship name="pictures" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Photo" inverseName="whereTook" inverseEntity="Photo"/>
     </entity>

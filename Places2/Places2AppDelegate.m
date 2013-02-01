@@ -11,6 +11,7 @@
 #import "RootViewController.h"
 #import "TopPlacesTableViewController.h"
 #import "RecentPhotosTableViewController.h"
+#import "FavoritePlacesTableViewController.h"
 
 @implementation Places2AppDelegate
 
@@ -28,16 +29,23 @@
     // create 2 table controllers for each tab
     TopPlacesTableViewController *tpc = [[TopPlacesTableViewController alloc] initInContext:self.managedObjectContext];
     tpc.tabBarItem.title = @"Popular Places";
-    tpc.tabBarItem.image = [UIImage imageNamed:@"MostViewed.jpg"];
+    tpc.tabBarItem.image = [UIImage imageNamed:@"topflickrplaces.png"];
     UINavigationController *tpcNav = [[UINavigationController alloc] initWithRootViewController:tpc];
     [tpc release];
     
     RecentPhotosTableViewController *rpc = [[RecentPhotosTableViewController alloc] initInContext:self.managedObjectContext];
     rpc.title = @"Recent Photos";
     rpc.tabBarItem.title = @"Recent Photots";
-    rpc.tabBarItem.image = [UIImage imageNamed:@"MostViewed.jpg"];
+    rpc.tabBarItem.image = [UIImage imageNamed:@"recentphotos.png"];
     UINavigationController *rpcNav = [[UINavigationController alloc] initWithRootViewController:rpc];
     [rpc release];
+    
+    FavoritePlacesTableViewController *fvc = [[FavoritePlacesTableViewController alloc] initInManagedObjectContext:self.managedObjectContext];
+    fvc.title = @"Favorite Places";
+    fvc.tabBarItem.title = @"Favorites";
+    fvc.tabBarItem.image = [UIImage imageNamed:@"favorites.png"];
+    UINavigationController *fvcNav = [[UINavigationController alloc] initWithRootViewController:fvc];
+    [fvc release];
     
     /*
      RecentPicturesTableViewController *rpc = [[RecentPicturesTableViewController alloc] init];
@@ -63,10 +71,11 @@
     
     // create array of views and add it to the tab controller
     //NSArray *tabsArray = [[NSArray alloc] initWithObjects:tpcNav, rpcNav, nil];
-    NSArray *tabsArray = [[NSArray alloc] initWithObjects:tpcNav, rpcNav, nil];
+    NSArray *tabsArray = [[NSArray alloc] initWithObjects:tpcNav, rpcNav, fvcNav, nil];
     tabBarController.viewControllers = tabsArray;
     [tpcNav release];
     [rpcNav release];
+    [fvcNav release];
     
     [self.window addSubview:tabBarController.view];
     [self.window makeKeyAndVisible];
