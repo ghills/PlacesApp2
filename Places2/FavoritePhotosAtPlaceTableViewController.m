@@ -49,11 +49,10 @@
 
 - (void)managedObjectSelected:(NSManagedObject *)managedObject
 {
-    PhotoViewController *fvc = [[PhotoViewController alloc] init];
     Photo * photo = (Photo *)managedObject;
+    PhotoViewController *fvc = [[PhotoViewController alloc] initWithPhoto:photo];
     photo.lastViewed = [NSDate date];
     NSLog(@"%@",photo.lastViewed);
-    fvc.photo = photo;
     [self.navigationController pushViewController:fvc animated:YES];
     [fvc release];
     

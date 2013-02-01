@@ -16,6 +16,7 @@
     Photo * photo;
 }
 
+- (id)initWithPhoto:(Photo *)photo;
 - (void)favoriteButtonPressed:(id)sender;
 - (void)updateButtonStyle:(UIBarButtonItem *)button;
 

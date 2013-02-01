@@ -22,6 +22,17 @@
     return self;
 }
 
+- (id)initWithPhoto:(Photo *)photo
+{
+    self = [super init];
+    if (self) {
+        self.photo = photo;
+        
+    }
+    
+    return self;
+}
+
 - (void)didReceiveMemoryWarning
 {
     // Releases the view if it doesn't have a superview.
@@ -35,7 +46,31 @@
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView
 {
-    NSData * photoData = [FlickrFetcher imageDataForPhotoWithURLString:self.photo.url];
+    NSFileManager * fm = [[NSFileManager alloc] init];
+    NSLog(@"flickrId: %@",self.photo.flickrId);
+
+    NSString * filePath = [NSString pathWithComponents:[NSArray arrayWithObjects:NSTemporaryDirectory(), self.photo.flickrId, nil]];
+    
+    NSData * photoData = nil;
+    if( [fm fileExistsAtPath:filePath] )
+    {
+        // use data cached in fs
+        photoData = [NSData dataWithContentsOfFile:filePath];
+        
+        NSLog(@"Using cached data");
+        
+        if( !self.photo.favorite )
+        {
+            NSLog(@"WARNING: a non-favorited photo is cached in the filesystem.");
+        }
+    }
+    else
+    {
+        // pull data down from url
+        photoData = [FlickrFetcher imageDataForPhotoWithURLString:self.photo.url];
+        
+        NSLog(@"Getting new data");
+    }
     
     UIImage *image = [UIImage imageWithData:photoData];
     UIImageView *iView = [[UIImageView alloc] initWithImage:image];

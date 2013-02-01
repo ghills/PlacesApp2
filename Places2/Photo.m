@@ -49,6 +49,9 @@
 {
     Place * place = (Place *)self.whereTook;
     
+    NSFileManager * fm = [[NSFileManager alloc] init];
+    NSString * filePath = [NSString pathWithComponents:[NSArray arrayWithObjects:NSTemporaryDirectory(), self.flickrId, nil]];
+    
     if( [self.favorite boolValue] )
     {
         self.favorite = [NSNumber numberWithBool:NO];
@@ -59,11 +62,29 @@
             hasfav = hasfav || [p.favorite boolValue];
         }
         place.hasFavorite = [NSNumber numberWithBool:hasfav];
+        
+        // no longer fav, delete from fs if file exists
+        if( [fm fileExistsAtPath:filePath] )
+        {
+            NSError * error = nil;
+            [fm removeItemAtPath:filePath error:&error];
+            if( error )
+            {
+                NSLog( @"%@", [error localizedDescription] );
+            }
+        }
     }
     else
     {
         self.favorite = [NSNumber numberWithBool:YES];
         place.hasFavorite = [NSNumber numberWithBool:YES];
+        
+        BOOL success;
+        success = [fm createFileAtPath:filePath contents:[NSData dataWithContentsOfURL:[NSURL URLWithString:self.url]] attributes:nil];
+        if(success == NO)
+        {
+            NSLog(@"ERROR: Failed to create image cache file");
+        }
     }
     
 }
