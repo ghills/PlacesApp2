@@ -36,6 +36,8 @@
         
         self.titleKey = @"title";
         
+        self.searchKey = @"title";
+        
     }
     return self;
 }

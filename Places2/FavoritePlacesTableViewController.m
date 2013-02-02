@@ -40,6 +40,8 @@
         
         self.titleKey = @"name";
         
+        self.searchKey = @"name";
+        
         self.title = @"Favorite Places";
     }
     return self;

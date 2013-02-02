@@ -42,6 +42,8 @@
         
         self.titleKey = @"title";
         
+        self.searchKey = @"title";
+        
         self.title = [NSString stringWithFormat:@"Favorites at %@", place.name];
     }
     return self;
