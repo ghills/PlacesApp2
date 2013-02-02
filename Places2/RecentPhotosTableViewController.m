@@ -58,4 +58,22 @@
     }
 }
 
+- (BOOL)canDeleteManagedObject:(NSManagedObject *)managedObject
+{
+    return YES;
+}
+
+- (void)deleteManagedObject:(NSManagedObject *)managedObject
+{
+    Photo * photo = (Photo *)managedObject;
+    photo.lastViewed = nil;
+    
+    NSError *error = nil;
+    [managedObject.managedObjectContext save:&error];
+    if(error)
+    {
+        NSLog(@"%@",[error localizedDescription]);
+    }
+}
+
 @end
