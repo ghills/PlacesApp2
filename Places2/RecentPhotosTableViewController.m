@@ -13,13 +13,20 @@
 
 - (id)initInContext:(NSManagedObjectContext *)context
 {
+#define SECONDS_PER_HOUR (3600)
+#define VIEWED_SINCE_INTERVAL ( -48 * SECONDS_PER_HOUR )
+    
     if( self = [super initWithStyle:UITableViewStylePlain] )
     {
         NSFetchRequest *request = [[NSFetchRequest alloc] init];
         request.entity = [NSEntityDescription entityForName:@"Photo" inManagedObjectContext: context];
         request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"lastViewed" ascending:NO]];
-        request.fetchLimit = 20;
-        request.fetchBatchSize = 20; // how many to do?
+        
+        // only show recently viewed photos
+        NSDate * viewedSince = [[NSDate date] dateByAddingTimeInterval:VIEWED_SINCE_INTERVAL];
+        request.predicate = [NSPredicate predicateWithFormat:@"lastViewed >= %@", viewedSince];
+        
+        request.fetchBatchSize = 20;
         
         NSFetchedResultsController *frc = [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:context sectionNameKeyPath:nil cacheName:nil];
         
