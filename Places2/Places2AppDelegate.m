@@ -76,6 +76,7 @@
     [tpcNav release];
     [rpcNav release];
     [fvcNav release];
+    [tabsArray release];
     
     [self.window addSubview:tabBarController.view];
     [self.window makeKeyAndVisible];

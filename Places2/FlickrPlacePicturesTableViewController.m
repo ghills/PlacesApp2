@@ -96,7 +96,7 @@
 - (void)dealloc
 {
     self.photoList = nil;
-    [self.managedObjectContext release];
+    self.managedObjectContext = nil;
     
     [super dealloc];
 }

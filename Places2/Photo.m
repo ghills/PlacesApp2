@@ -49,7 +49,7 @@
 {
     Place * place = (Place *)self.whereTook;
     
-    NSFileManager * fm = [[NSFileManager alloc] init];
+    NSFileManager * fm = [[[NSFileManager alloc] init] autorelease];
     NSString * filePath = [NSString pathWithComponents:[NSArray arrayWithObjects:NSTemporaryDirectory(), self.flickrId, nil]];
     
     if( [self.favorite boolValue] )
@@ -86,7 +86,6 @@
             NSLog(@"ERROR: Failed to create image cache file");
         }
     }
-    
 }
 
 

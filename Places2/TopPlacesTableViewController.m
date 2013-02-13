@@ -102,7 +102,7 @@
 - (void)dealloc
 {
     [topFlickrPlaces release];
-    [self.managedObjectContext release];
+    self.managedObjectContext = nil;
     [super dealloc];
 }
 

@@ -19,7 +19,7 @@
 {
     Place *place = nil;
     
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
     request.entity = [NSEntityDescription entityForName:@"Place" inManagedObjectContext:context];
     request.predicate = [NSPredicate predicateWithFormat:@"name = %@", name];
     NSError *error = nil;
