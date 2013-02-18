@@ -11,6 +11,11 @@
 #import "FlickrFetcher.h"
 #import "Place.h"
 
+@interface Photo()
++ (NSData *)getPhotoDataFromFileSystemById:(NSNumber *)flickrId;
++ (NSData *)getPhotoDataFromWebAtUrl:(NSString *)url;
+@end
+
 @implementation Photo
 @dynamic title;
 @dynamic summary;
@@ -88,5 +93,44 @@
     }
 }
 
++ (NSData *)getPhotoDataFromFileSystemById:(NSNumber *)flickrId
+{
+    NSData * imageData = nil;
+    
+    NSFileManager * fm = [[[NSFileManager alloc] init] autorelease];
+    NSString * filePath = [NSString pathWithComponents:[NSArray arrayWithObjects:NSTemporaryDirectory(), flickrId, nil]];
+    
+    if( [fm fileExistsAtPath:filePath] )
+    {
+        imageData = [NSData dataWithContentsOfFile:filePath];
+    }
+    
+    return imageData;
+}
+
++ (NSData *)getPhotoDataFromWebAtUrl:(NSString *)url
+{
+    return [FlickrFetcher imageDataForPhotoWithURLString:url];
+}
+
+- (void)processImageDataWithBlock:(void (^)(NSData * imageData))processImage
+{
+    NSString * url = self.url;
+    NSNumber * flickrID = self.flickrId;
+    dispatch_queue_t callingQueue = dispatch_get_current_queue();
+    dispatch_queue_t downloadQueue = dispatch_queue_create("Picture data downloader in Photo", NULL);
+    dispatch_async(downloadQueue, ^{
+        NSData * imageData = [Photo getPhotoDataFromFileSystemById:flickrID];
+        if( !imageData )
+        {
+            //not found in cache, grab from flickr instead
+            imageData = [Photo getPhotoDataFromWebAtUrl:url];
+        }
+        dispatch_async(callingQueue, ^{
+            processImage(imageData);
+        });
+    });
+    dispatch_release(downloadQueue);
+}
 
 @end

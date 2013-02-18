@@ -46,37 +46,9 @@
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView
 {
-    NSFileManager * fm = [[NSFileManager alloc] init];
-    NSLog(@"flickrId: %@",self.photo.flickrId);
-
-    NSString * filePath = [NSString pathWithComponents:[NSArray arrayWithObjects:NSTemporaryDirectory(), self.photo.flickrId, nil]];
-    
-    NSData * photoData = nil;
-    if( [fm fileExistsAtPath:filePath] )
-    {
-        // use data cached in fs
-        photoData = [NSData dataWithContentsOfFile:filePath];
-        
-        NSLog(@"Using cached data");
-        
-        if( !self.photo.favorite )
-        {
-            NSLog(@"WARNING: a non-favorited photo is cached in the filesystem.");
-        }
-    }
-    else
-    {
-        // pull data down from url
-        photoData = [FlickrFetcher imageDataForPhotoWithURLString:self.photo.url];
-        
-        NSLog(@"Getting new data");
-    }
-    
-    UIImage *image = [UIImage imageWithData:photoData];
-    UIImageView *iView = [[UIImageView alloc] initWithImage:image];
+    UIImageView *iView = [[UIImageView alloc] init];
     CGRect applicationFrame = [[UIScreen mainScreen] applicationFrame]; /* foo? */
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:applicationFrame];
-    scrollView.contentSize = image.size;
     scrollView.minimumZoomScale = 0.3;
     scrollView.maximumZoomScale = 5.0;
     scrollView.delegate = self;
@@ -86,7 +58,12 @@
     [scrollView release];
     imageView = iView;
     
-    [fm release];
+    [self.photo processImageDataWithBlock:^(NSData *imageData) {
+        UIImage *image = [UIImage imageWithData:imageData];
+        imageView.image = image;
+        imageView.frame = CGRectMake(0, 0, image.size.width, image.size.height);
+        scrollView.contentSize = image.size;
+    }];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
